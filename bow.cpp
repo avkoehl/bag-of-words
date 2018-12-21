@@ -1,7 +1,7 @@
 // Arthur Koehl
 // 
 // arg1 is input text file name
-// outputs bow_arg1.txt as output
+// outputs arg1.dat as output
 // format: word1 <count> word2 <count> word3 <count> ...
 //
 // can be easily used with gnu parallel in bash
@@ -24,6 +24,10 @@ int main(int argc, char**argv)
   }
   
   ifstream infile(argv[1]);
+  ofstream outfile;
+  string fname = string(argv[1]);
+  string newfname = fname.substr(0,fname.find_last_of('.')) + ".dat";
+  outfile.open(newfname.c_str());
   
   // read file line by line
   // assumption is newlines signify document breaks
@@ -73,7 +77,7 @@ int main(int argc, char**argv)
      
     for (int i = 0; i < unique.size(); i++)
     {
-      cout << unique[i] << " " << counts[i] << " ";
+      outfile << unique[i] << " " << counts[i] << " ";
     }
   }//for each line in file
 
